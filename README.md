@@ -78,6 +78,26 @@ http://localhost:5000/api/docs
 - `PUT /appointments/:id` - Update an appointment (requires JWT)
 - `DELETE /appointments/:id` - Delete an appointment (requires JWT)
 
+### Webhook
+When an appointment is created or updated, a POST request will be sent to the URL configured in the `WEBHOOK_URL` environment variable.
+
+The payload will be in the following format:
+```json
+{
+  "event": "appointment_status_changed",
+  "data": {
+    "id": 1,
+    "date": "2025-11-13T15:00:00.000Z",
+    "service": "Vaccination",
+    "status": "SCHEDULED",
+    "observations": "Annual vaccination",
+    "petId": 1,
+    "createdAt": "2025-11-13T14:30:00.000Z",
+    "updatedAt": "2025-11-13T14:30:00.000Z"
+  }
+}
+```
+
 ## Available Scripts
 
 ```bash
