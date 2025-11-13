@@ -4,7 +4,6 @@
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -18,8 +17,17 @@
     "skipLibCheck": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@app/*": ["src/*"],
+      "@config/*": ["config/*"],
+      "@libs/boat": ["libs/boat/src"],
+      "@libs/boat/*": ["libs/boat/src/*"]
+
+    },
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "exclude": ["node_modules", "dist"]
+
   }
 }
