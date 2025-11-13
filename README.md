@@ -87,9 +87,6 @@ $ npm run prisma:generate
 # Run migrations
 $ npm run prisma:migrate
 
-# Deploy migrations (production)
-$ npm run prisma:migrate:deploy
-
 # Seed database
 $ npm run db:seed
 ```
