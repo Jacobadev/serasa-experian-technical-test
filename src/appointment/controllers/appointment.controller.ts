@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
-  Query,
+  Query, Put,
 } from '@nestjs/common';
 import { AppointmentService } from '../services/appointment.service';
 import { CreateAppointmentDto } from '../dto/create-appointment.dto';
@@ -84,7 +84,7 @@ export class AppointmentController {
     return this.appointmentService.findOne(+id, user.id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @ApiOperation({ summary: 'Update an appointment by ID' })
   @ApiResponse({
     status: 200,

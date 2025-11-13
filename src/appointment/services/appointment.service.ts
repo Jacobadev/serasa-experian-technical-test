@@ -1,14 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { CreateAppointmentDto } from '../dto/create-appointment.dto';
 import { UpdateAppointmentDto } from '../dto/update-appointment.dto';
 import { AppointmentRepository } from '../repositories/appointment/database';
-import { PetRepository } from '@app/pet/repositories/pet/database';
+import { PetRepositoryContract } from '@app/pet/repositories';
+import { PetModuleConstants } from '@app/pet/constants';
 
 @Injectable()
 export class AppointmentService {
   constructor(
     private readonly appointmentRepository: AppointmentRepository,
-    private readonly petRepository: PetRepository,
+    @Inject(PetModuleConstants.petRepo)
+    private readonly petRepository: PetRepositoryContract,
   ) {}
 
   async create(createAppointmentDto: CreateAppointmentDto, userId: number) {
