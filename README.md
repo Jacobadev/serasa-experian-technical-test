@@ -30,11 +30,75 @@ To run the application using Docker, follow these steps:
 
 ## Project setup without Docker Compose
 
+Follow these steps to run the app locally (without Docker Compose), using the same database settings as docker-compose.
+
+1) Install dependencies
+
 ```bash
 $ npm install
 ```
 
+2) Start a MySQL 8 database (same config as docker-compose)
+
+- Option A — using Docker (only for DB):
+
+```bash
+$ docker run -d --name pet_management_db -p 3306:3306 \
+  -e MYSQL_ROOT_PASSWORD=root \
+  -e MYSQL_DATABASE=pet_management \
+  -e MYSQL_USER=user \
+  -e MYSQL_PASSWORD=password \
+  mysql:8.0
+```
+
+- Option B — using a local MySQL install:
+  - Create a database named `pet_management`.
+  - Ensure a user with access (for simplicity you can use root/root, or adjust the URL below accordingly).
+
+3) Create a .env file at the project root
+
+Use the same values used in docker-compose:
+
+```
+DATABASE_URL="mysql://root:root@localhost:3306/pet_management"
+JWT_SECRET="be883c570a07881cf3e9fa93acfd8ae4"
+APP_PORT=5000
+```
+
+4) Generate Prisma Client (optional if already generated)
+
+```bash
+$ npm run prisma:generate
+```
+
+5) Run Prisma migrations (REQUIRED)
+
+This step is mandatory for the application to work correctly.
+
+```bash
+$ npm run prisma:migrate
+```
+
+6) Seed the database (optional, but recommended for testing)
+
+```bash
+$ npm run db:seed
+```
+
 ## Compile and run the project
+
+Before starting the application, make sure you have:
+- A MySQL instance running (same settings as docker-compose).
+- Run Prisma migrations (REQUIRED):
+  ```bash
+  $ npm run prisma:migrate
+  ```
+- (Optional) Seed the database:
+  ```bash
+  $ npm run db:seed
+  ```
+
+Then start the app:
 
 ```bash
 # development
@@ -46,6 +110,8 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+Base path: all routes are served under `/api/v1`.
 
 ## API Documentation
 
@@ -77,36 +143,3 @@ http://localhost:5000/api/docs
 - `GET /appointments/:id` - Get a specific appointment (requires JWT)
 - `PUT /appointments/:id` - Update an appointment (requires JWT)
 - `DELETE /appointments/:id` - Delete an appointment (requires JWT)
-
-### Webhook
-When an appointment is created or updated, a POST request will be sent to the URL configured in the `WEBHOOK_URL` environment variable.
-
-The payload will be in the following format:
-```json
-{
-  "event": "appointment_status_changed",
-  "data": {
-    "id": 1,
-    "date": "2025-11-13T15:00:00.000Z",
-    "service": "Vaccination",
-    "status": "SCHEDULED",
-    "observations": "Annual vaccination",
-    "petId": 1,
-    "createdAt": "2025-11-13T14:30:00.000Z",
-    "updatedAt": "2025-11-13T14:30:00.000Z"
-  }
-}
-```
-
-## Available Scripts
-
-```bash
-# Generate Prisma Client
-$ npm run prisma:generate
-
-# Run migrations
-$ npm run prisma:migrate
-
-# Seed database
-$ npm run db:seed
-```
