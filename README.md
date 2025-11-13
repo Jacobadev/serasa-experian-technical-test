@@ -1,11 +1,5 @@
 # Desafio Técnico — API de Gestão de Pets 
 
-## Project setup
-
-```bash
-$ npm install
-```
-
 ## Running with Docker
 
 To run the application using Docker, follow these steps:
@@ -34,6 +28,12 @@ To run the application using Docker, follow these steps:
     $ docker-compose down
     ```
 
+## Project setup without Docker Compose
+
+```bash
+$ npm install
+```
+
 ## Compile and run the project
 
 ```bash
@@ -47,21 +47,12 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-```
-
 ## API Documentation
 
 Once the application is running, you can access the Swagger documentation at:
 
 ```
-http://localhost:5000/api/
-docs
+http://localhost:5000/api/docs
 ```
 
 ## API Endpoints
