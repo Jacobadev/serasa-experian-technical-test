@@ -57,42 +57,49 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Deployment
+## API Documentation
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Once the application is running, you can access the Swagger documentation at:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```
+http://localhost:3000/docs
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## API Endpoints
 
-## Resources
+### Authentication
+- `POST /auth/signup` - Register a new user
+- `POST /auth/login` - Login and receive JWT token
 
-Check out a few resources that may come in handy when working with NestJS:
+### Users
+- `GET /users/me` - Get authenticated user profile (requires JWT)
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Pets
+- `POST /pets` - Create a new pet (requires JWT)
+- `GET /pets` - Get all pets owned by authenticated user (requires JWT)
+- `GET /pets/:id` - Get a specific pet (requires JWT)
+- `PUT /pets/:id` - Update a pet (requires JWT)
+- `DELETE /pets/:id` - Delete a pet (requires JWT)
 
-## Support
+### Appointments
+- `POST /appointments` - Create a new appointment (requires JWT)
+- `GET /appointments` - Get all appointments with optional filters (requires JWT)
+- `GET /appointments/:id` - Get a specific appointment (requires JWT)
+- `PUT /appointments/:id` - Update an appointment (requires JWT)
+- `DELETE /appointments/:id` - Delete an appointment (requires JWT)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Available Scripts
 
-## Stay in touch
+```bash
+# Generate Prisma Client
+$ npm run prisma:generate
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# Run migrations
+$ npm run prisma:migrate
 
-## License
+# Deploy migrations (production)
+$ npm run prisma:migrate:deploy
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+# Seed database
+$ npm run db:seed
+```
