@@ -12,7 +12,7 @@ export class LoginRequestDto {
 
     @ApiProperty({
         description: 'The user\'s password. Must be at least 8 characters long.',
-        example: 'Password123!',
+        example: 'password1234',
         minLength: 8,
     })
     @IsString()
