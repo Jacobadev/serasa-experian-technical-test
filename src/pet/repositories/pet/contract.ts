@@ -8,4 +8,3 @@ export interface PetRepositoryContract {
   delete(id: number): Promise<void>;
   findAll(): Promise<Pet[]>;
 }
-

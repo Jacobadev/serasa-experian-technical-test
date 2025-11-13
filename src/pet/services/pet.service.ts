@@ -1,4 +1,9 @@
-import { Injectable, Inject, NotFoundException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PetRepositoryContract } from '../repositories';
 import { PetModuleConstants } from '../constants';
 import { Pet } from '@prisma/client';
@@ -9,7 +14,8 @@ import { PetResponseDto } from '../dto/pet-response.dto';
 @Injectable()
 export class PetService {
   constructor(
-    @Inject(PetModuleConstants.petRepo) private readonly pets: PetRepositoryContract,
+    @Inject(PetModuleConstants.petRepo)
+    private readonly pets: PetRepositoryContract,
   ) {}
 
   async findAll(userId?: number): Promise<PetResponseDto[]> {
@@ -27,13 +33,18 @@ export class PetService {
     }
 
     if (userId && pet.ownerId !== userId) {
-      throw new ForbiddenException('You do not have permission to access this pet.');
+      throw new ForbiddenException(
+        'You do not have permission to access this pet.',
+      );
     }
 
     return pet;
   }
 
-  async create(createPetDto: CreatePetDto, ownerId: number): Promise<PetResponseDto> {
+  async create(
+    createPetDto: CreatePetDto,
+    ownerId: number,
+  ): Promise<PetResponseDto> {
     const newPet = await this.pets.create({
       ...createPetDto,
       ownerId,
@@ -42,7 +53,11 @@ export class PetService {
     return newPet;
   }
 
-  async update(id: number, updatePetDto: UpdatePetDto, userId?: number): Promise<PetResponseDto> {
+  async update(
+    id: number,
+    updatePetDto: UpdatePetDto,
+    userId?: number,
+  ): Promise<PetResponseDto> {
     const pet = await this.pets.findById(id);
 
     if (!pet) {
@@ -50,7 +65,9 @@ export class PetService {
     }
 
     if (userId && pet.ownerId !== userId) {
-      throw new ForbiddenException('You do not have permission to update this pet.');
+      throw new ForbiddenException(
+        'You do not have permission to update this pet.',
+      );
     }
 
     return this.pets.update(id, updatePetDto);
@@ -64,10 +81,11 @@ export class PetService {
     }
 
     if (userId && pet.ownerId !== userId) {
-      throw new ForbiddenException('You do not have permission to delete this pet.');
+      throw new ForbiddenException(
+        'You do not have permission to delete this pet.',
+      );
     }
 
     await this.pets.delete(id);
   }
 }
-

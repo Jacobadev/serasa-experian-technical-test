@@ -1,9 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsInt, IsNumber, IsOptional, Min } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsInt,
+  IsNumber,
+  IsOptional,
+  Min,
+} from 'class-validator';
 
 export class CreatePetDto {
   @ApiProperty({
-    description: 'The pet\'s name.',
+    description: "The pet's name.",
     example: 'Max',
   })
   @IsString()
@@ -11,7 +18,7 @@ export class CreatePetDto {
   name: string;
 
   @ApiProperty({
-    description: 'The pet\'s species.',
+    description: "The pet's species.",
     example: 'Dog',
   })
   @IsString()
@@ -19,7 +26,7 @@ export class CreatePetDto {
   species: string;
 
   @ApiProperty({
-    description: 'The pet\'s age in years.',
+    description: "The pet's age in years.",
     example: 3,
     minimum: 0,
   })
@@ -28,7 +35,7 @@ export class CreatePetDto {
   age: number;
 
   @ApiProperty({
-    description: 'The pet\'s weight in kilograms.',
+    description: "The pet's weight in kilograms.",
     example: 15.5,
     minimum: 0,
   })
@@ -45,4 +52,3 @@ export class CreatePetDto {
   @IsOptional()
   observations?: string;
 }
-

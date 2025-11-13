@@ -9,7 +9,7 @@ import {
   UseGuards,
   ParseIntPipe,
   HttpCode,
-  HttpStatus
+  HttpStatus,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -20,7 +20,7 @@ import {
   ApiNotFoundResponse,
   ApiForbiddenResponse,
   ApiUnauthorizedResponse,
-  ApiOperation
+  ApiOperation,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '@app/auth/guards/jwt-auth.guard';
 import { PetService } from '../services';
@@ -43,7 +43,9 @@ export class PetController {
     description: 'The pet has been successfully created.',
     type: PetResponseDto,
   })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized. Token is invalid or not provided.' })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized. Token is invalid or not provided.',
+  })
   async create(
     @Body() createPetDto: CreatePetDto,
     @GetUser() user: User,
@@ -57,7 +59,9 @@ export class PetController {
     description: 'Successfully retrieved all pets.',
     type: [PetResponseDto],
   })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized. Token is invalid or not provided.' })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized. Token is invalid or not provided.',
+  })
   async findAll(@GetUser() user: User): Promise<PetResponseDto[]> {
     return this.petService.findAll(user.id);
   }
@@ -69,8 +73,12 @@ export class PetController {
     type: PetResponseDto,
   })
   @ApiNotFoundResponse({ description: 'Pet not found.' })
-  @ApiForbiddenResponse({ description: 'You do not have permission to access this pet.' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized. Token is invalid or not provided.' })
+  @ApiForbiddenResponse({
+    description: 'You do not have permission to access this pet.',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized. Token is invalid or not provided.',
+  })
   async findOne(
     @Param('id', ParseIntPipe) id: number,
     @GetUser() user: User,
@@ -85,8 +93,12 @@ export class PetController {
     type: PetResponseDto,
   })
   @ApiNotFoundResponse({ description: 'Pet not found.' })
-  @ApiForbiddenResponse({ description: 'You do not have permission to update this pet.' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized. Token is invalid or not provided.' })
+  @ApiForbiddenResponse({
+    description: 'You do not have permission to update this pet.',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized. Token is invalid or not provided.',
+  })
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updatePetDto: UpdatePetDto,
@@ -98,10 +110,16 @@ export class PetController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete a pet by ID' })
-  @ApiNoContentResponse({ description: 'The pet has been successfully deleted.' })
+  @ApiNoContentResponse({
+    description: 'The pet has been successfully deleted.',
+  })
   @ApiNotFoundResponse({ description: 'Pet not found.' })
-  @ApiForbiddenResponse({ description: 'You do not have permission to delete this pet.' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized. Token is invalid or not provided.' })
+  @ApiForbiddenResponse({
+    description: 'You do not have permission to delete this pet.',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized. Token is invalid or not provided.',
+  })
   async delete(
     @Param('id', ParseIntPipe) id: number,
     @GetUser() user: User,
@@ -109,4 +127,3 @@ export class PetController {
     return this.petService.delete(id, user.id);
   }
 }
-

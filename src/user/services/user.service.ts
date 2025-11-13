@@ -3,13 +3,14 @@ import { UserRepositoryContract } from '../repositories';
 import { UserModuleConstants } from '../constants';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import {CreateUserDto} from "@app/user/dto/create-user.dto";
-import {UserResponseDto} from "@app/auth/dto/user-response-dto";
+import { CreateUserDto } from '@app/user/dto/create-user.dto';
+import { UserResponseDto } from '@app/auth/dto/user-response-dto';
 
 @Injectable()
 export class UserService {
   constructor(
-      @Inject(UserModuleConstants.userRepo) private readonly users: UserRepositoryContract,
+    @Inject(UserModuleConstants.userRepo)
+    private readonly users: UserRepositoryContract,
   ) {}
 
   async findByEmail(email: string): Promise<User | null> {
@@ -19,7 +20,6 @@ export class UserService {
     return this.users.findById(id);
   }
 
-
   /**
    * Creates a new user in the database.
    * @param createUserDto - The data required to create a user.
@@ -27,7 +27,6 @@ export class UserService {
    * @throws {ConflictException} If a user with the same email already exists.
    */
   async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
-
     const existingUser = await this.users.findByEmail(createUserDto.email);
     if (existingUser) {
       throw new ConflictException('A user with this email already exists.');

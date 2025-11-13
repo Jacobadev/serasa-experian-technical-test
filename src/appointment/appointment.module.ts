@@ -10,4 +10,3 @@ import { PetModule } from 'src/pet/pet.module';
   providers: [AppointmentService, AppointmentRepository],
 })
 export class AppointmentModule {}
-

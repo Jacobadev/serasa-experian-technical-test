@@ -58,4 +58,3 @@ export class AppointmentRepository implements IAppointmentRepository {
     await this.prisma.appointment.delete({ where: { id } });
   }
 }
-

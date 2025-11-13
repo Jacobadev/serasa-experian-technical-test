@@ -22,7 +22,7 @@ import {
 import { JwtAuthGuard } from '@app/auth/guards/jwt-auth.guard';
 import { UserResponseDto } from '@app/user/dto/user-response.dto';
 import { AppointmentResponseDto } from '../dto/appointment-response.dto';
-import {GetUser} from "@app/user/decorator/user.decorator";
+import { GetUser } from '@app/user/decorator/user.decorator';
 
 @ApiTags('Appointments')
 @ApiBearerAuth()
@@ -63,7 +63,7 @@ export class AppointmentController {
     description: 'Filter appointments by service',
   })
   findAll(
-    @User() user: UserResponseDto,
+    @GetUser() user: UserResponseDto,
     @Query('date') date?: string,
     @Query('service') service?: string,
   ): Promise<AppointmentResponseDto[]> {
@@ -79,7 +79,7 @@ export class AppointmentController {
   })
   findOne(
     @Param('id') id: string,
-    @User() user: UserResponseDto,
+    @GetUser() user: UserResponseDto,
   ): Promise<AppointmentResponseDto> {
     return this.appointmentService.findOne(+id, user.id);
   }
@@ -94,7 +94,7 @@ export class AppointmentController {
   update(
     @Param('id') id: string,
     @Body() updateAppointmentDto: UpdateAppointmentDto,
-    @User() user: UserResponseDto,
+    @GetUser() user: UserResponseDto,
   ): Promise<AppointmentResponseDto> {
     return this.appointmentService.update(+id, updateAppointmentDto, user.id);
   }
@@ -107,9 +107,8 @@ export class AppointmentController {
   })
   remove(
     @Param('id') id: string,
-    @User() user: UserResponseDto,
+    @GetUser() user: UserResponseDto,
   ): Promise<void> {
     return this.appointmentService.remove(+id, user.id);
   }
 }
-

@@ -11,10 +11,6 @@ import { PetRepository } from './repositories';
     PetService,
     { provide: PetModuleConstants.petRepo, useClass: PetRepository },
   ],
-  exports: [
-    PetService,
-    PetModuleConstants.petRepo,
-  ]
+  exports: [PetService, PetModuleConstants.petRepo],
 })
 export class PetModule {}
-

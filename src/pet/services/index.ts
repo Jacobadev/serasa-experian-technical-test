@@ -1,2 +1,1 @@
 export * from './pet.service';
-

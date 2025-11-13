@@ -7,8 +7,8 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-      private userService: UserService,
-      private configService: ConfigService,
+    private userService: UserService,
+    private configService: ConfigService,
   ) {
     const secret = configService.get<string>('JWT_SECRET');
 

@@ -8,25 +8,25 @@ export class PetResponseDto {
   id: number;
 
   @ApiProperty({
-    description: 'The pet\'s name.',
+    description: "The pet's name.",
     example: 'Max',
   })
   name: string;
 
   @ApiProperty({
-    description: 'The pet\'s species.',
+    description: "The pet's species.",
     example: 'Dog',
   })
   species: string;
 
   @ApiProperty({
-    description: 'The pet\'s age in years.',
+    description: "The pet's age in years.",
     example: 3,
   })
   age: number;
 
   @ApiProperty({
-    description: 'The pet\'s weight in kilograms.',
+    description: "The pet's weight in kilograms.",
     example: 15.5,
   })
   weight: number;
@@ -56,4 +56,3 @@ export class PetResponseDto {
   })
   updatedAt: Date;
 }
-

@@ -1,14 +1,9 @@
-import {
-  Catch,
-  ArgumentsHost,
-
-} from '@nestjs/common';
+import { Catch, ArgumentsHost } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { ValidationFailed } from '.';
 
 @Catch()
 export class ExceptionFilter extends BaseExceptionFilter {
-
   catch(exception: any, host: ArgumentsHost) {
     console.error('ERRRR ==> ', exception);
     const ctx = host.switchToHttp();

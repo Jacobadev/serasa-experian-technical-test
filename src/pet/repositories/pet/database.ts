@@ -30,4 +30,3 @@ export class PetRepository implements PetRepositoryContract {
     return this.prisma.pet.findMany();
   }
 }
-

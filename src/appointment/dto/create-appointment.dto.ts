@@ -9,7 +9,10 @@ export class CreateAppointmentDto {
   @IsDateString()
   date: Date;
 
-  @ApiProperty({ example: 'Vaccination', description: 'The service to be performed' })
+  @ApiProperty({
+    example: 'Vaccination',
+    description: 'The service to be performed',
+  })
   @IsString()
   service: string;
 
@@ -20,10 +23,9 @@ export class CreateAppointmentDto {
   })
   @IsString()
   @IsOptional()
-  observations?: string;
+  observations?: string | null;
 
   @ApiProperty({ example: 1, description: 'The ID of the pet' })
   @IsString()
   petId: number;
 }
-

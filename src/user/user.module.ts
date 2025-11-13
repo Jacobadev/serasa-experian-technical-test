@@ -11,9 +11,6 @@ import { UserRepository } from './repositories';
     UserService,
     { provide: UserModuleConstants.userRepo, useClass: UserRepository },
   ],
-  exports: [
-    UserService,
-    UserModuleConstants.userRepo,
-  ]
+  exports: [UserService, UserModuleConstants.userRepo],
 })
 export class UserModule {}

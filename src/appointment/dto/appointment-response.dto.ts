@@ -8,4 +8,3 @@ export class AppointmentResponseDto extends CreateAppointmentDto {
   })
   id: number;
 }
-

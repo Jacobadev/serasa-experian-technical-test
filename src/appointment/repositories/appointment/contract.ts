@@ -1,6 +1,6 @@
 import { Appointment } from '@prisma/client';
-import {CreateAppointmentDto} from "@app/appointment/dto/create-appointment.dto";
-import {UpdateAppointmentDto} from "@app/appointment/dto/update-appointment.dto";
+import { CreateAppointmentDto } from '@app/appointment/dto/create-appointment.dto';
+import { UpdateAppointmentDto } from '@app/appointment/dto/update-appointment.dto';
 
 export interface IAppointmentRepository {
   create(
@@ -15,4 +15,3 @@ export interface IAppointmentRepository {
   ): Promise<Appointment>;
   remove(id: number): Promise<void>;
 }
-

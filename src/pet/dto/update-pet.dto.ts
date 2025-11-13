@@ -3,7 +3,7 @@ import { IsString, IsInt, IsNumber, IsOptional, Min } from 'class-validator';
 
 export class UpdatePetDto {
   @ApiProperty({
-    description: 'The pet\'s name.',
+    description: "The pet's name.",
     example: 'Max',
     required: false,
   })
@@ -12,7 +12,7 @@ export class UpdatePetDto {
   name?: string;
 
   @ApiProperty({
-    description: 'The pet\'s species.',
+    description: "The pet's species.",
     example: 'Dog',
     required: false,
   })
@@ -21,7 +21,7 @@ export class UpdatePetDto {
   species?: string;
 
   @ApiProperty({
-    description: 'The pet\'s age in years.',
+    description: "The pet's age in years.",
     example: 3,
     minimum: 0,
     required: false,
@@ -32,7 +32,7 @@ export class UpdatePetDto {
   age?: number;
 
   @ApiProperty({
-    description: 'The pet\'s weight in kilograms.',
+    description: "The pet's weight in kilograms.",
     example: 15.5,
     minimum: 0,
     required: false,
@@ -51,4 +51,3 @@ export class UpdatePetDto {
   @IsOptional()
   observations?: string;
 }
-

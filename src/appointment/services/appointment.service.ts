@@ -12,48 +12,45 @@ export class AppointmentService {
   ) {}
 
   async create(createAppointmentDto: CreateAppointmentDto, userId: number) {
-    const pet = await this.petRepository.findOne({
-      id: createAppointmentDto.petId,
-      userId,
-    });
-    if (!pet) {
+    const pet = await this.petRepository.findById(createAppointmentDto.petId);
+    if (!pet || pet.ownerId !== userId) {
       throw new NotFoundException('Pet not found');
     }
-    return this.appointmentRepository.create({
-      data: {
-        ...createAppointmentDto,
-        pet: {
-          connect: {
-            id: createAppointmentDto.petId,
-          },
-        },
-      },
-    });
+    return this.appointmentRepository.create(
+      createAppointmentDto,
+      createAppointmentDto.petId,
+    );
   }
 
   async findAll(userId: number, date?: string, service?: string) {
-    return this.appointmentRepository.find({
-      where: {
-        pet: {
-          userId,
-        },
-        date: date ? { gte: new Date(date) } : undefined,
-        service: service ? { contains: service } : undefined,
-      },
-    });
+    const pets = await this.petRepository.findByOwnerId(userId);
+    const petIds = pets.map((pet) => pet.id);
+
+    const allAppointments = await Promise.all(
+      petIds.map((petId) =>
+        this.appointmentRepository.findAll(
+          petId,
+          date ? new Date(date) : undefined,
+          service,
+        ),
+      ),
+    );
+
+    return allAppointments.flat();
   }
 
   async findOne(id: number, userId: number) {
-    const appointment = await this.appointmentRepository.findOne({
-      id,
-      pet: {
-        userId,
-      },
-    });
-    if (!appointment) {
-      throw new NotFoundException('Appointment not found');
+    const pets = await this.petRepository.findByOwnerId(userId);
+    const petIds = pets.map((pet) => pet.id);
+
+    for (const petId of petIds) {
+      const appointment = await this.appointmentRepository.findOne(id, petId);
+      if (appointment) {
+        return appointment;
+      }
     }
-    return appointment;
+
+    throw new NotFoundException('Appointment not found');
   }
 
   async update(
@@ -62,15 +59,11 @@ export class AppointmentService {
     userId: number,
   ) {
     await this.findOne(id, userId);
-    return this.appointmentRepository.update({
-      where: { id },
-      data: updateAppointmentDto,
-    });
+    return this.appointmentRepository.update(id, updateAppointmentDto);
   }
 
   async remove(id: number, userId: number) {
     await this.findOne(id, userId);
-    await this.appointmentRepository.delete({ id });
+    await this.appointmentRepository.remove(id);
   }
 }
-
