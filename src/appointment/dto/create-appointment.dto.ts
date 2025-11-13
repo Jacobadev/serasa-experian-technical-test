@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsDateString, IsOptional } from 'class-validator';
+import {IsString, IsDateString, IsOptional, IsNumber} from 'class-validator';
 
 export class CreateAppointmentDto {
   @ApiProperty({
@@ -26,6 +26,6 @@ export class CreateAppointmentDto {
   observations?: string | null;
 
   @ApiProperty({ example: 1, description: 'The ID of the pet' })
-  @IsString()
+  @IsNumber()
   petId: number;
 }
