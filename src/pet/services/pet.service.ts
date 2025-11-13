@@ -53,8 +53,7 @@ export class PetService {
       throw new ForbiddenException('You do not have permission to update this pet.');
     }
 
-    const updatedPet = await this.pets.update(id, updatePetDto);
-    return updatedPet;
+    return this.pets.update(id, updatePetDto);
   }
 
   async delete(id: number, userId?: number): Promise<void> {
